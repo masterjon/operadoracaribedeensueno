@@ -1,0 +1,485 @@
+{% extends "base.html" %}
+{% block css %}
+<style>
+    #formBBVA{
+        display: none;
+    }
+    #formBBVA input{
+        color: black;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+
+ 
+<div class="container main-content">
+    <div class="row">
+        <div class="col-sm-12 text-center section-header">
+            <h1 class="blue bold">BIENVENIDO</h1>
+        </div>
+
+    </div>
+    <div class="row"><hr class="hr-yellow"></div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <!--img src="{{BASE_URL}}static/img/LogoBanamex.png" alt="Citibanamex"-->
+            <br>
+            <img src="{{BASE_URL}}static/img/VisaMaster.png" alt="Visa/Mastercard">
+            <br>
+            <br>
+
+        </div>
+        <div class="col-sm-4 col-sm-offset-4 text-center dark-blue">
+            <h2 class="bold"><strong>{{car.name}}</strong></h2>
+            <img src="{{BASE_URL}}{{car.img}}" alt="">
+            
+            <div class="details text-left dark-blue px20">
+               <p>Motor: <strong>{{car.motor}}</strong></p>
+                <p>Capacidad de pasajeros: <strong>{{car.pax}}</strong></p>
+                <p>Combustible/Rendimiento: <strong>{{car.km}}</strong></p> 
+                <p>Precio/día: <strong>${{car.price|number_format(2, '.', ',')}} MXN</strong></p>
+                <p>Días de renta: <input id="days-input" type="number"  value="7" min="1" style="width:50px"></p>
+            </div>
+        </div>
+        {# 12345678
+        4op1er3ad2or3ac5ar5i #}
+        <form id="payment-form" >
+        <div class="col-sm-4 col-sm-offset-4">
+            
+            <!-- Form start -->
+            <div class="row dark-blue text-center">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <label class="control-label" for="monto">MONTO A PAGAR</label>
+                        <div class="input-group">
+                        <div class="input-group-addon">$</div>
+                        <input id="monto" name="monto" type="text" placeholder="" class="form-control "  required readonly >
+                        <div class="input-group-addon">.00 MXN</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label" for="referencia">REFERENCIA</label>
+                        <input id="referencia" name="referencia" type="text" placeholder="" class="form-control" required>
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label" for="descripcion">DESCRIPCIÓN</label>
+                        <input id="descripcion" name="descripcion" type="text" placeholder="" class="form-control" value="{{car.name}}" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="row dark-blue text-center">        
+                <!-- Button -->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <p>Políticas de entrega enviadas al cliente vía email a la contratación del servicio.</p>
+                        <p>*No se aceptan cancelaciones ni devoluciones</p>
+                        <p><input type="checkbox" required> Acepto politicas de contratación</p>
+                        <br>
+                        <!--button id="sendbtn" name="singlebutton" class="btn btn-default dark-blue btn-lg">PAGAR AHORA</button-->
+                        <h3>Paga con:</h3>
+                        <button id="sendbtn" name="singlebutton" class="btn btn-default dark-blue btn-lg"><img src="{{BASE_URL}}static/img/BotonBanamex.png" alt="" type="submit"></button>
+                        <div id="bbva_button" name="singlebutton" class="btn btn-default dark-blue btn-lg"><img src="{{BASE_URL}}static/img/BotonBBVA.png" alt=""></div>
+                        <div id="conektaButton" class="btn btn-default dark-blue btn-lg"><img src="{{BASE_URL}}static/img/BotonConekta.png" alt=""></div>
+                        <!--div id="stripeButton" class="btn btn-default dark-blue btn-lg"><img src="{{BASE_URL}}static/img/StripeBoton.png" alt=""></div-->
+
+                       
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <!--img class="pull-right" src="{{BASE_URL}}static/img/EvoPayments.png" alt="EvoPayments"-->
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <form id="formBBVA" action="https://ecom.eglobal.com.mx/VPBridgeWeb/servlets/TransactionStartBridge" method="POST">
+        <input type="text" name="Ds_Merchant_Amount" id="Ds_Merchant_Amount" >
+        <input type="text" name="Ds_Merchant_Currency" value="484">
+        <input type="text" name="Ds_Merchant_Order" id="Ds_Merchant_Order">
+        <input type="text" name="Ds_Merchant_ProductDescription" id="Ds_Merchant_ProductDescription">
+        <input type="text" name="Ds_Merchant_MerchantCode" value="4132355">
+        <input type="text" name="Ds_Merchant_MerchantURL" value="https://www.operadoracaribeensueno.com/">
+        <input type="text" name="Ds_Merchant_MerchantSignature" id="Ds_Merchant_MerchantSignature" >
+        <input type="text" name="Ds_Merchant_Terminal" value="01">
+        <input type="text" name="Ds_Merchant_TransactionType" value="0">
+        <input type="submit">
+    </form>
+</div>
+
+
+<div class="modal fade conekta-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content blue">
+      <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Formulario de Pago</h4>
+      </div>
+      <div class="modal-body gray px18">
+        <form action="" method="POST" id="card-form">
+            <span class="card-errors"></span>
+            <div class="form-group">
+                <label >Email</label>
+                <input id="conekta-email" type="email" id="exampleInputEmail1" placeholder="Email" class="form-control"  required>
+                
+            </div>
+            <div class="form-group">
+              <label >Nombre del tarjetahabiente</label>
+              <input id="conekta-name" type="text" size="20" data-conekta="card[name]" placeholder="Nombre del tarjetahabiente" class="form-control"  >
+            </div>
+            <div class="form-group">
+                <label>Número de tarjeta de crédito</label>
+                <input type="text" size="20" data-conekta="card[number]" placeholder="Número de tarjeta de crédito" class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="form-group">
+                        <label>Fecha de expiración (MM/AAAA)</label>
+                        <div class="row">
+                           <div class="col-xs-3">
+                                <input type="text" size="2" maxlength="2" data-conekta="card[exp_month]" placeholder="MM" class="form-control">
+                            </div> 
+                           <div class="col-xs-4">
+                              <input type="text" size="4" maxlength="4" data-conekta="card[exp_year]" class="form-control" placeholder="AAAA"> 
+                           </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-md-2 ">
+                    <div class="form-group">
+                        <label>CVC</label>
+                        <input type="text" size="4" maxlength="4" data-conekta="card[cvc]" placeholder="CVC" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn btn-lg btn-primary">Pagar</button>   
+                </div>
+               
+            </div>
+          
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade success-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content blue">
+      <div class="modal-header alert alert-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Transacción exitosa</h4>
+      </div>
+      <div class="modal-body gray px18">
+        El cargo se hizo correctamente. 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade failure-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content blue">
+      <div class="modal-header alert alert-danger">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Error</h4>
+      </div>
+      <div class="modal-body gray px18">
+        <span id="modal-error">Por favor intente nuevamente mas tarde</span> 
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+ <script src="https://banamex.dialectpayments.com/checkout/version/36/checkout.js"
+                data-error="errorCallback"
+                data-cancel="cancelCallback">
+        </script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+
+<script>
+function errorCallback(error) {
+      console.log(JSON.stringify(error));
+}
+function cancelCallback() {
+      console.log('Payment cancelled');
+}
+function addCommas(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+
+
+    $(document).ready(function(){
+
+
+
+
+        var total = $("#days-input").val()*{{car.price}}
+
+        $("#monto").val(addCommas(total))
+        $("#days-input").change(function(){
+            total = $("#days-input").val()*{{car.price}}
+            $("#monto").val(addCommas(total))
+        })
+
+    // CONEKTA CHECKOUT
+        Conekta.setPublicKey('key_OqoakdrPrBeNwQYzzysNUsg');
+
+        var conektaSuccessResponseHandler = function(token) {
+            
+             var data = {"token":token.id,"description":$("#descripcion").val(),"amount":total*100,"name":$("#conekta-name").val(),"email":$("#conekta-email").val(),"referencia":$("#referencia").val()}
+
+             $.ajax('/conekta',{
+                  data:data,
+                  type:'post',
+                  dataType:'json',
+                  cache:false,
+                  timeout:20000,
+                  beforeSend: function(json){
+                    console.log("beforeSend:")
+                    console.log(json)
+                  },
+                  success: function(json){
+                    console.log("success:")
+                    console.log(json);
+                    if (json.payment_status == "paid"){
+                        console.log("status 200")
+                        $('.success-modal').modal('show')
+                        
+                    }
+                    else{
+
+                        $("#modal-error").html(json)
+                        $('.failure-modal').modal('show')
+                        console.log(json)
+                    }
+                   
+                   
+                  },
+                  error:function(jqXHR,textStatus,errorThrown){
+                    console.log(errorThrown)
+                    console.log(jqXHR)
+
+                  }
+            });
+
+            
+        };
+
+        $("#conektaButton").click(function(){
+          // Open Checkout with further options:
+          var $myForm = $("#payment-form");
+          if(! $myForm[0].checkValidity()) {
+                $myForm.find(':submit').click();
+            }
+            else{
+                $('.conekta-modal').modal('show')
+          
+          
+          }
+        });
+
+        var conektaErrorResponseHandler = function(response) {
+            var $form = $("#card-form");
+            $form.find(".card-errors").text(response.message_to_purchaser);
+            $form.find("button").prop("disabled", false);
+        };
+
+        //jQuery para que genere el token después de dar click en submit
+        $(function () {
+            $("#card-form").submit(function(event) {
+              var $form = $(this);
+              // Previene hacer submit más de una vez
+              $form.find("button").prop("disabled", true);
+              Conekta.Token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
+              return false;
+            });
+        });
+
+    // STRIPE CHECKOUT
+        $(".stripe-button").data("amount",total.toString())
+        
+        var handler = StripeCheckout.configure({
+          key: 'pk_test_YBpqxNC1wFauwxai3lXEVDjg',
+          image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+          locale: 'auto',
+          token: function(token) {
+            var data = {"token":token.id,"description":$("#descripcion").val(),"amount":total*100,"email":token.email,"referencia":$("#referencia").val()}
+            console.log(data)
+
+    
+            $.ajax('/stripe',{
+                  data:data,
+                  type:'post',
+                  dataType:'json',
+                  cache:false,
+                  timeout:20000,
+                  beforeSend: function(json){
+                    console.log("beforeSend:")
+                    console.log(json)
+                  },
+                  success: function(json){
+                    console.log("success:")
+                    console.log(json);
+                    if (json.status == "succeeded"){
+                        console.log("status 200")
+                        $('.success-modal').modal('show')
+                        
+                    }
+                    else{
+
+                        $("#modal-error").html(json.error.message)
+                        $('.failure-modal').modal('show')
+                        console.log(json.error.message)
+                    }
+                   
+                   
+                  },
+                  error:function(jqXHR,textStatus,errorThrown){
+                    console.log(errorThrown)
+                    console.log(jqXHR)
+
+                  }
+            });
+
+            
+          }
+        });
+
+        $("#stripeButton").click(function(){
+          // Open Checkout with further options:
+          var $myForm = $("#payment-form");
+          if(! $myForm[0].checkValidity()) {
+                $myForm.find(':submit').click();
+            }
+            else{
+
+
+          handler.open({
+            name: 'OPERADORA CARIBE ENSUEÑO',
+            description: $("#descripcion").val(),
+            amount: total*100,
+            currency: 'MXN',
+            locale: 'es'
+          });
+          
+          }
+        });
+
+        // Close Checkout on page navigation:
+        window.addEventListener('popstate', function() {
+          handler.close();
+        });
+
+        $('.failure-modal,.success-modal').on('hidden.bs.modal', function (e) {
+          window.location.replace("/");
+
+        })
+
+    // BBVA FORM
+        $("#bbva_button").click(function(){
+            var $myForm = $("#payment-form");
+            if(! $myForm[0].checkValidity()) {
+                $myForm.find(':submit').click();
+            }
+            else{
+                
+
+                $("#Ds_Merchant_Amount").val(total*100);
+                $("#Ds_Merchant_Order").val($("#referencia").val());
+                $("#Ds_Merchant_ProductDescription").val($("#descripcion").val());
+                console.log($("#formBBVA").serialize())
+                $.ajax('/bancomer',{
+                  data:$("#formBBVA").serialize(),
+                  type:'post',
+                  dataType:'text',
+                  cache:false,
+                  timeout:20000,
+                  beforeSend: function(json){
+                    
+                  },
+                  success: function(text){
+                    console.log(text);
+                    $("#Ds_Merchant_MerchantSignature").val(text)
+                    console.log($("#formBBVA").serialize())
+                    $("#formBBVA").submit();
+                   
+                  },
+                  error:function(jqXHR,textStatus,errorThrown){
+                    console.log(errorThrown)
+                    console.log(jqXHR)
+
+                  }
+                });
+            }
+
+        });
+
+
+
+
+    // BANAMEX FORM
+        $("#payment-form").submit(function(e){
+            e.preventDefault();
+            Checkout.configure({
+                merchant: '1060658',
+                order: {
+                    amount: function() {
+                        //Dynamic calculation of amount
+                        return total;
+                    },
+                    currency: 'MXN',
+                    description: $("#descripcion").val(),
+                   id: $("#referencia").val()
+                },
+                interaction: {
+                    merchant: {
+                        name: 'OPERADORA CARIBE ENSUEÑO S.A. DE C.V.',
+                        address: {
+                            line1: 'Cancún Quintana Roo'
+                        },
+                        email: 'caribe.ensueno@gmail.com',
+                        logo: 'https://transportadoracaribeensueno.com/logo_oce.png'
+
+                    }
+                }
+            });
+            
+            Checkout.showPaymentPage();
+        });
+        
+    });
+</script>
+{% endblock  %}

@@ -1,0 +1,8 @@
+{  
+   "require": {  
+     "slim/slim": "2.*",  
+     "twig/twig": "1.*",
+      "phpmailer/phpmailer": "^5.2",
+      "stripe/stripe-php": "^6.8"
+    }  
+ }

@@ -1,0 +1,188 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. --> 
+
+<head id="www-sitename-com" data-template-set="html5-reset">
+
+	<meta charset="utf-8">
+	
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>{% block title %}{% endblock %}</title>
+	
+	<meta name="title" content="" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<!--Always force latest IE rendering engine (even in intranet) & Chrome Frame-->
+	
+	<meta name="google-site-verification" content="" />
+	<!-- Speaking of Google, don't forget to set your site up: http://google.com/webmasters -->
+	
+	<meta name="author" content="" />
+	<meta name="Copyright" content="" />
+	
+	<!--  Mobile Viewport Fix
+	http://j.mp/mobileviewport & http://davidbcalhoun.com/2010/viewport-metatag
+	device-width : Occupy full width of the screen in its current orientation
+	initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+	maximum-scale = 1.0 retains dimensions instead of zooming in if page width < device width
+	-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+	<!-- Iconifier might be helpful for generating favicons and touch icons: http://iconifier.net -->
+	<link rel="shortcut icon" href="{{BASE_URL}}static/img/FaviconOCE.png" />
+	<!-- This is the traditional favicon.
+		 - size: 16x16 or 32x32
+		 - transparency is OK -->
+	
+	<!-- The is the icon for iOS's Web Clip and other things.
+		 - size: 57x57 for older iPhones, 72x72 for iPads, 114x114 for retina display (IMHO, just go ahead and use the biggest one)
+		 - To prevent iOS from applying its styles to the icon name it thusly: apple-touch-icon-precomposed.png
+		 - Transparency is not recommended (iOS will put a black BG behind the icon) -->
+	
+	<!-- concatenate and minify for production -->
+	<link href="{{BASE_URL}}static/css/reset.css" rel="stylesheet">
+	
+	<link href="{{BASE_URL}}bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+	<link href="{{BASE_URL}}static/css/style.css" rel="stylesheet">
+	{% block css %}
+
+	{% endblock %}
+		<!--script type="application/ld+json">
+	{
+	  "@context" : "http://schema.org",
+	  "@type" : "Organization",
+	  "name" : "Brand Name",
+	  "url" : "http://www.mysite.mx",
+	  "logo" : "http://www.sitename.mx/static/website/image/logo-gulf.png",
+	  "sameAs" : [
+	    "https://www.facebook.com/sitename..",
+	    "https://twitter.com/sitename..",
+	    "https://www.instagram.com/sitename.."
+	  ],
+	  "contactPoint" : [{
+    	"@type" : "ContactPoint",
+    	"telephone" : "+52-800-000-0000",
+    	"contactType" : "customer service",
+    	"contactOption" : "TollFree",
+    	"areaServed" : "MX"
+  	  }]
+	}
+	</script-->
+	<!-- This is an un-minified, complete version of Modernizr. 
+		 Before you move to production, you should generate a custom build that only has the detects you need. -->
+	<script src="{{BASE_URL}}bower_components/modernizr/modernizr.js"></script>
+	
+	<!-- Application-specific meta tags -->
+	<!-- Windows 8 -->
+	<meta name="application-name" content="" /> 
+	<meta name="msapplication-TileColor" content="" /> 
+	<meta name="msapplication-TileImage" content="" />
+	<!-- Twitter -->
+	<meta name="twitter:card" content="">
+	<meta name="twitter:site" content="">
+	<meta name="twitter:title" content="">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:url" content="">
+	<!-- Facebook -->
+	<meta property="og:title" content="" />
+	<meta property="og:description" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:image" content="" />
+
+</head>
+
+<body class="{% block bodyclass %}{% endblock %}">
+<header class="header main-header">
+	<nav class="navbar ">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="{{BASE_URL}}">
+	      	<img src="{{BASE_URL}}static/img/LogoOCE.png" alt="">
+	      </a>
+	    </div>
+	    <div id="navbar" class="collapse navbar-collapse">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li class="active"><a href="{{BASE_URL}}">INICIO
+	        <li><a href="{{BASE_URL}}nosotros">NOSOTROS</a></li>
+	        <li class="dropdown"> <a href="#" class="dropdown-toggle" id="drop2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> AUTOS <span class="caret"></span> </a>
+                <ul id="car-main-menu" class="dropdown-menu" aria-labelledby="drop2"> <li><a href="{{BASE_URL}}autos#sedan_luxury" data-target="sedan_luxury">SEDÁN LUXURY</a></li>
+                 <li><a href="{{BASE_URL}}autos#suv_luxury" data-target="suv_luxury">SUV LUXURY</a></li>
+                 <li><a href="{{BASE_URL}}autos#sedan_premium" data-target="sedan_premium">SEDÁN PREMIUM</a></li>
+                 <li><a href="{{BASE_URL}}autos#suv_premium" data-target="suv_premium">SUV PREMIUM</a></li>
+             </ul>
+            </li>
+            <li><a href="{{BASE_URL}}destinos">DESTINOS</a></li>
+	        <!--li><a href="{{BASE_URL}}pago">RESERVA</a></li-->
+	        <li><a href="{{BASE_URL}}contacto">CONTACTO</a></li>
+	        
+	      </ul>
+	    </div><!--/.nav-collapse -->
+	  </div>
+	</nav>
+</header>
+
+{% block content %}
+
+{% endblock %}
+<footer class="footer">
+
+</footer>
+<script src="{{BASE_URL}}bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{BASE_URL}}bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{BASE_URL}}static/js/main.js"></script>
+
+
+<div class="bg-dark-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <p></p>
+                <!--p class="white px14">Desarrollado por: <a href="http://www.iddeasmkt.com/" target="_blank" class="white">Iddeas Mkt</a></p-->
+                <p class="white px14">Cancún, Quintana Roo. México</p>      
+            </div>
+            <div class="col-sm-6  text-right">
+                <p></p>
+                <p class="white px14">&copy; OPERADORA CARIBE ENSUEÑO TOUR S.A. DE C.V.</p>      
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block js %}
+
+{% endblock  %}
+
+<!-- Asynchronous google analytics; this is the official snippet.
+	 Replace UA-XXXXXX-XX with your site's ID and uncomment to enable.
+	 
+<script>
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXXX-XX']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+-->
+  
+</body>
+</html>

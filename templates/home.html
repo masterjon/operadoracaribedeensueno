@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block css %}
+<style>
+
+</style>
+{% endblock %}
+{% block content %}
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="{{BASE_URL}}static/img/HOME/Slides/Slide1.jpg" alt="Slide 1">
+      <div class="carousel-caption">
+        <h3><strong>Descubre nuevas rutas con nuestros automóviles.</strong> <br>¡Reserva ahora!</h3>
+        
+      </div>
+    </div>
+    <div class="item">
+      <img src="{{BASE_URL}}static/img/HOME/Slides/Slide2.jpg" alt="Slide 2">
+      <div class="carousel-caption">
+        <h3><strong>¿Listo para vivir tu siguiente aventura? </strong> <br>¡Explora en cuatro ruedas!</h3>
+        
+      </div>
+    </div>
+    <div class="item">
+      <img src="{{BASE_URL}}static/img/HOME/Slides/Slide3.jpg" alt="Slide 3">
+      <div class="carousel-caption">
+        <h3><strong>Mejores autos, mejores experiencias.</strong> <br>¡Llámanos!</h3>
+        
+      </div>
+    </div>
+    <div class="item">
+      <img src="{{BASE_URL}}static/img/HOME/Slides/Slide4.jpg" alt="Slide 3">
+      <div class="carousel-caption">
+        <h3><strong>De negocios, por aventura o placer nuestros vehículos están </strong>listos para tu siguiente viaje.
+</h3>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 bg-dark-blue text-center">
+            <a href="#" class="dropdown-toggle" id="drop-sedan" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h2>SEDÁN <span class="glyphicon glyphicon-chevron-down"></span></h2></a>
+                <ul class="dropdown-menu full-drop" aria-labelledby="drop-sedan"> <li><a href="{{BASE_URL}}autos#sedan_luxury">LUXURY</a></li>
+                 <li><a href="{{BASE_URL}}autos#sedan_premium">PREMIUM</a></li>
+             </ul>
+        </div>
+        <div class="col-sm-6 bg-blue text-center">
+            <a href="#" class="dropdown-toggle" id="drop-suv" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h2>SUVS <span class="glyphicon glyphicon-chevron-down"></span></h2></a>
+            <ul class="dropdown-menu full-drop" aria-labelledby="drop-suv">   <li><a href="{{BASE_URL}}autos#suv_luxury">LUXURY</a></li>
+                <li><a href="{{BASE_URL}}autos#suv_premium">PREMIUM</a></li>
+             </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+           <div id="Carousel" class="carousel slide car-slide">
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+            {% for key,group in car_groups  %}
+                <div class="item {% if loop.index == 1 %}active{% endif %}">
+                    <div class="row">
+                        {% for car in group.cars %}
+                             <div class="col-md-3"><a href="{{BASE_URL}}autos#{{key}}" class="thumbnail"><img src="{{BASE_URL}}{{car.img}}" alt="{{car.name}}" style="max-width:100%;"></a></div>
+                        {% endfor %}
+                    </div>
+                </div>
+             {% endfor %} 
+            
+             
+            </div><!--.carousel-inner-->
+              <a data-slide="prev" href="#Carousel" class="left carousel-control"><i class="glyphicon glyphicon-chevron-left dark-blue"></i></a>
+              <a data-slide="next" href="#Carousel" class="right carousel-control"><i class="glyphicon glyphicon-chevron-right dark-blue"></i></a>
+            </div><!--.Carousel--> 
+        </div>
+    </div>
+    <div class="row" style="position:relative">
+        <div class="col-sm-12 submenu-bg">
+            <img src="{{BASE_URL}}static/img/HOME/BarraInsights.png" alt="" class="img-responsive">
+        </div>
+        <div class="col-sm-12 submenu-links">
+            <div class="row blue text-right">
+                <!--div class="col-sm-4"><a href="" class="submenu-item">AHORRA</a></div>
+                <div class="col-sm-4"><a href="" class="submenu-item">DESCUBRE</a></div>
+                <div class="col-sm-4"><a href="" class="submenu-item">DISFRUTA</a></div-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12"><p><br></p></div>
+        <div class="col-sm-7 dark-blue text-center">
+            <h3 class="px30 bold">NUESTROS VEHÍCULOS ESTÁN LISTOS PARA RODAR A TU SIGUIENTE AVENTURA</h3>
+            <p><br></p>
+            <!--a href="{{BASE_URL}}pago"><button class="ghost-btn dark-blue">RESERVA AHORA</button></a-->
+        </div>
+        <div class="col-sm-5">
+            <img src="{{BASE_URL}}static/img/HOME/IlustrativaBajo.png" alt="">
+        </div>
+    </div>
+    <div class="row">
+        <hr class="hr-blue">
+        <div class="col-sm-12"><img src="{{BASE_URL}}static/img/HOME/LogosOk.png" alt=""></div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock  %}

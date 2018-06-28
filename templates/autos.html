@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+
+ 
+<div class="container main-content">
+    <div class="row">
+        <div class="col-sm-12 text-center section-header">
+            <h1 class="blue bold">AUTOS</h1>
+        </div>
+
+    </div>
+    <div class="row"><hr class="hr-yellow"></div>
+    <div class="row">
+        <div class="col-sm-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs car-tabs" role="tablist">
+            {% for key,group in car_groups %}
+                <li role="presentation" class="{% if loop.index == 1 %}active{% endif %}"><a href="#{{key}}" aria-controls="home" role="tab" data-toggle="tab">{{group.title}}</a></li>
+            {% endfor %}
+            
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+             {% for key,group in car_groups %}
+                <div role="tabpanel" class="tab-pane {% if loop.index == 1 %}active{% endif %}" id="{{key}}">
+                    <div class="row">
+                    {% for car in group.cars %}
+                        <div class="col-sm-6">
+                            <div class="car-item text-center">
+                                <img src="{{BASE_URL}}{{car.img}}" alt="">
+                                <h2 class="dark-blue">{{car.name}}</h2>
+                                <div class="details text-left dark-blue px20">
+                                   <p>Motor: <strong>{{car.motor}}</strong></p>
+                                    <p>Capacidad de pasajeros: <strong>{{car.pax}}</strong></p>
+                                    <p>Combustible/Rendimiento: <strong>{{car.km}}</strong></p> 
+                                    <p>Precio/día: <strong>${{car.price|number_format(2, '.', ',')}} MXN</strong></p>
+                                    
+                                </div>
+                                
+                            </div>    
+                            <div class="reserve text-center">
+                                <p><br></p>
+                                <a href="{{BASE_URL}}pago?slug={{car.slug}}"><button class="ghost-btn ghost-blue">RESERVA</button></a>
+                                <p><br></p>
+                                <p><br></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+             {% endfor %}
+          </div>
+        </div>
+    </div>
+    
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function(){
+        var hash = window.location.hash.substr(1);
+        $('.car-tabs a[href="#'+hash+'"]').tab('show')
+        
+        $("#car-main-menu li a").click(function(){
+            var target = $(this).data("target")
+            $('.car-tabs a[href="#'+target+'"]').tab('show')
+            
+        })
+    });
+</script>
+{% endblock  %}

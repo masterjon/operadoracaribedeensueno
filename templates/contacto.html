@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+
+ 
+<div class="container main-content">
+    <div class="row">
+        <div class="col-sm-12 text-center section-header">
+            <h1 class="blue bold">CONTÁCTANOS</h1>
+        </div>
+
+    </div>
+    <div class="row"><hr class="hr-yellow"></div>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="{{BASE_URL}}static/img/Contacto/IlustrativaContacto.jpg" alt="">
+        </div>
+        <div class="col-sm-6  gray px18 ">
+           <p><br></p>
+           <p>Cancún, Quintana Roo, México</p>
+           <p>Teléfonos: 
+            <br> 
+            <a href="tel:01 998 251 82 00">01 998 251 82 00</a>
+            <br>
+
+            <a herf="tel:01 998 251 83 98">01 998 251 83 98</a>
+            <br>
+
+            <a href="tel:01 998 251 04 30">01 998 251 04 30</a>
+            <br>
+
+            <a href="tel:01 998 251 26 98">01 998 251 26 98</a>
+            
+                        </p>
+            <p><a href="mailto:reservaciones2@transportadoracaribeensueno.com">reservaciones2@transportadoracaribeensueno.com</a></p>
+            <p>Horarios: <br>
+                LUN - VIE <br>
+                10:00 - 14:00 horas <br>
+                15:00 a 18:00 horas<br>
+                *Horario local de Cancún. </p>
+        </div>
+        <div class="col-sm-12">
+            <p><br></p>
+             <p class="text-center px30 dark-blue">¿Estas listo para tu siguiente aventura? ¡Escríbenos!</p>
+        </div>
+ 
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form id="contact-form">
+            <!-- Form start -->
+            <div class="row dark-blue">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre</label>
+                        <input id="nombre" name="nombre" type="text" placeholder="" class="form-control input-md" required>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label" for="nacionalidad">Nacionalidad</label>
+                        <input id="nacionalidad" name="nacionalidad" type="text" placeholder="" class="form-control input-md">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="" class="form-control input-md" required>
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" for="telefono">Teléfono</label>
+                        <input id="telefono" name="telefono" type="text" placeholder="" class="form-control input-md">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="control-label" for="textarea">Comentarios</label>
+                    <textarea class="form-control" id="textarea" name="textarea" rows="4"></textarea>
+                    
+                </div>
+                
+                <!-- Button -->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <br>
+                        <button id="sendbtn" name="singlebutton" class="btn btn-default pull-right dark-blue btn-lg">Enviar</button>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 form-msgs">
+                    <br>
+                    <div class="alert-success text-center px18">Mensaje enviado</div>
+                    <div class="alert-danger text-center px18">Hubo un error intenta de nuevo</div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $("#contact-form").submit(function(e){
+            e.preventDefault();
+            $.ajax("{{BASE_URL}}form",{
+                data:$("#contact-form").serialize(),
+                type:'post',
+                dataType:'json',
+                cache:false,
+                timeout:8000,
+                beforeSend: function(json){
+                    $(".form-msgs .alert-danger").hide();
+                    $(".form-msgs .alert-success").hide();
+                },
+                success: function(json){
+                    console.log(json);
+                    if(json == "Success"){
+                        $(".form-msgs .alert-success").fadeIn()
+                        $("#contact-form").reset()
+                    }
+                    else{
+                        $(".form-msgs .alert-error").fadeIn()
+                    }
+                    
+                },
+                error:function(jqXHR,textStatus,errorThrown){
+                    console.log("Error"+jqXHR+textStatus+errorThrown);
+                    $(".form-msgs .alert-danger").fadeIn()
+                }
+            });
+        });
+        
+    });
+</script>
+{% endblock  %}
